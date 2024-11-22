@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hotel Management - Data Table</title>
+    <title>Hotel Management - Multiple Tables</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -23,15 +23,10 @@
         }
         th {
             background-color: #f4f4f4;
+            cursor: pointer;
         }
-        .form-container {
-            margin-top: 20px;
-        }
-        input[type="text"], input[type="number"] {
-            padding: 8px;
-            margin: 5px 0;
-            width: 100%;
-            box-sizing: border-box;
+        th:hover {
+            background-color: #e0e0e0;
         }
         button {
             padding: 10px 15px;
@@ -39,6 +34,7 @@
             background-color: #007BFF;
             border: none;
             cursor: pointer;
+            margin-bottom: 20px;
         }
         button:hover {
             background-color: #0056b3;
@@ -46,8 +42,12 @@
     </style>
 </head>
 <body>
-    <h1>Hotel Management - Order Data Table</h1>
-    <table id="hotelTable">
+    <h1>Hotel Management - Multiple Tables</h1>
+    
+    <!-- Table 1 -->
+    <h2>Table 1</h2>
+    <button onclick="printSpecificTable('table1')">Print This Table</button>
+    <table id="table1">
         <thead>
             <tr>
                 <th>Name</th>
@@ -58,7 +58,6 @@
             </tr>
         </thead>
         <tbody>
-            <!-- Example row -->
             <tr>
                 <td>John Doe</td>
                 <td>12</td>
@@ -69,33 +68,63 @@
         </tbody>
     </table>
 
-    
+    <!-- Table 2 -->
+    <h2>Table 2</h2>
+    <button onclick="printSpecificTable('table2')">Print This Table</button>
+    <table id="table2">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Table Number</th>
+                <th>Order</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Jane Smith</td>
+                <td>8</td>
+                <td>Caesar Salad</td>
+                <td>1</td>
+                <td>$10</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Table 3 -->
+    <h2>Table 3</h2>
+    <button onclick="printSpecificTable('table3')">Print This Table</button>
+    <table id="table3">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Table Number</th>
+                <th>Order</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Michael Brown</td>
+                <td>15</td>
+                <td>Steak</td>
+                <td>1</td>
+                <td>$25</td>
+            </tr>
+        </tbody>
+    </table>
 
     <script>
-        function addRow() {
-            const name = document.getElementById("name").value;
-            const tableNumber = document.getElementById("tableNumber").value;
-            const order = document.getElementById("order").value;
-            const quantity = document.getElementById("quantity").value;
-            const price = document.getElementById("price").value;
+        // Function to print a specific table by its ID
+        function printSpecificTable(tableId) {
+            const table = document.getElementById(tableId).outerHTML; // Get the specific table's content
+            const originalContent = document.body.innerHTML; // Save original content
 
-            if (name && tableNumber && order && quantity && price) {
-                const table = document.getElementById("hotelTable").getElementsByTagName("tbody")[0];
-                const newRow = table.insertRow();
-
-                newRow.innerHTML = `
-                    <td>${name}</td>
-                    <td>${tableNumber}</td>
-                    <td>${order}</td>
-                    <td>${quantity}</td>
-                    <td>$${price}</td>
-                `;
-
-                // Clear form fields
-                document.getElementById("dataForm").reset();
-            } else {
-                alert("Please fill out all fields!");
-            }
+            document.body.innerHTML = `<h1>Hotel Management - Printed Table</h1>` + table; // Correct concatenation
+            window.print(); // Trigger print
+            document.body.innerHTML = originalContent; // Restore original content
         }
     </script>
 </body>
