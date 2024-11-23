@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Profile Website</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f3f4f6;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background: linear-gradient(90deg, #f2820a, #4976b0);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background: #ffffff;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        nav a {
+            color: #070101;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #e1860f;
+        }
+        .container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px;
+        }
+        .profile-card {
+            width: 100%;
+            max-width: 800px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        .profile-photo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .profile-photo img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 3px solid #0865df;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+        .profile-photo input {
+            display: none;
+        }
+        .profile-photo label {
+            background: #0865df;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .profile-photo label:hover {
+            background: #0865df;
+        }
+        h1 {
+            font-size: 1.8em;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .profile-section {
+            margin-bottom: 20px;
+        }
+        .profile-section h2 {
+            margin-bottom: 10px;
+            color: #171704;
+        }
+        textarea, input[type="text"], input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        textarea {
+            resize: none;
+        }
+        .gallery {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .gallery img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 10px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border 0.3s;
+        }
+        .gallery img:hover {
+            border-color: #0865df;
+        }
+        .save-btn {
+            width: 100%;
+            padding: 12px;
+            background: #0865df;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .save-btn:hover {
+            background: #f17400;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: #906d57;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    Welcome to My Modern Profile
+</header>
+
+<nav>
+    <a href="#profile">Profile</a>
+    <a href="#contact">Contact</a>
+    <a href="#gallery">Gallery</a>
+</nav>
+
+<div class="container">
+    <div class="profile-card">
+        <div class="profile-photo">
+            <img src="profile-photo.jpg" alt="Profile Photo" id="profilePhoto">
+            <label for="photoUpload">Change Photo</label>
+            <input type="file" id="photoUpload" accept="image/*">
+        </div>
+        <h1>
+            <input type="text" id="name" placeholder="Enter your name" value="Adarsh Bagali">
+        </h1>
+        <div class="profile-section" id="bio-section">
+            <h2>Bio</h2>
+            <textarea id="bio" placeholder="Write something about yourself">This is Adarsh Hotel since 1985, serving the food with best quality.</textarea>
+        </div>
+        <div class="profile-section" id="contact">
+            <h2>Contact Information</h2>
+            <input type="email" id="email" value="adarshbagali@gmail.com" placeholder="Enter your email">
+            <input type="text" id="phone" value="+9912514800" placeholder="Enter your phone">
+            <input type="text" id="website" value="https://AdarsHotel.com" placeholder="Enter your website">
+        </div>
+        <div class="profile-section" id="gallery">
+            <h2>Photo Gallery</h2>
+            <div class="gallery" id="galleryContainer">
+                <img src="photo1.jpg" alt="Gallery Photo 1" onclick="selectPhoto(this.src)">
+            </div>
+            <input type="file" id="galleryUpload" accept="image/*">
+        </div>
+        <button class="save-btn" onclick="saveProfile()">Save Changes</button>
+    </div>
+</div>
+
+<footer>
+    © 2024 Manager Profile
+</footer>
+
+<script>
+    document.getElementById('photoUpload').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('profilePhoto').src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    function selectPhoto(src) {
+        document.getElementById('profilePhoto').src = src;
+    }
+
+    document.getElementById('galleryUpload').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const newImage = document.createElement('img');
+                newImage.src = e.target.result;
+                newImage.alt = "New Gallery Photo";
+                newImage.onclick = () => selectPhoto(newImage.src);
+                document.getElementById('galleryContainer').appendChild(newImage);
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    function saveProfile() {
+        const name = document.getElementById('name').value;
+        const bio = document.getElementById('bio').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+        const website = document.getElementById('website').value;
+
+        alert(`Profile Updated:
+        Name: ${name}
+        Bio: ${bio}
+        Email: ${email}
+        Phone: ${phone}
+        Website: ${website}`);
+    }
+</script>
+
+</body>
+</html>
